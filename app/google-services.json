@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "906887356131",
+    "firebase_url": "https://itenary-dc075.firebaseio.com",
+    "project_id": "itenary-dc075",
+    "storage_bucket": "itenary-dc075.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906887356131:android:1ca759fc1de23511",
+        "android_client_info": {
+          "package_name": "com.orbital.itenary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "906887356131-k1s5fl8jkdodf5du2dgiv8unr3s2m61t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.orbital.itenary",
+            "certificate_hash": "9488a851dd8254bb7fe8644de544135f36b81144"
+          }
+        },
+        {
+          "client_id": "906887356131-abttda5maq9m5kh8o3ip1sr037q7m7br.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "906887356131-abttda5maq9m5kh8o3ip1sr037q7m7br.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBwUzfpIM2jtO2JKDztc2kavk2_iJ2YNI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "906887356131-abttda5maq9m5kh8o3ip1sr037q7m7br.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
