@@ -1,8 +1,10 @@
 package com.orbital.itenary;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,7 +12,7 @@ import android.widget.EditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class ItineraryEdit extends AppCompatActivity {
+public class ItineraryAdd extends AppCompatActivity {
     private EditText titleInput;
     private EditText typeInput;
     private EditText dateInput;
@@ -19,9 +21,7 @@ public class ItineraryEdit extends AppCompatActivity {
     private EditText notesInput;
     private EditText costInput;
     private EditText currencyInput;
-    private Button btn_edit;
-    private Button btn_delete;
-    private String programId;
+    private Button btn_send;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseRef;
 
@@ -39,8 +39,11 @@ public class ItineraryEdit extends AppCompatActivity {
         notesInput = findViewById(R.id.input_notes);
         costInput = findViewById(R.id.input_cost);
         currencyInput = findViewById(R.id.input_currency);
-        btn_edit = findViewById(R.id.btn_add);
-        btn_delete = findViewById(R.id.btn_delete);
+        btn_send = findViewById(R.id.btn_add);
+
+        // Home button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         // Initialise database with offline capability
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
@@ -48,47 +51,25 @@ public class ItineraryEdit extends AppCompatActivity {
         mDatabaseRef = mDatabase.getReference("program");
         mDatabaseRef.keepSynced(true);
 
-        //Home button
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        // Get Note from bundle
-        Bundle b = this.getIntent().getExtras();
-        if (b != null){
-            ProgramClass program = b.getParcelable("prog");
-            titleInput.setText(program.getTitleOfActivity());
-            typeInput.setText(program.getTypeOfActivity());
-            dateInput.setText(program.getTitleOfActivity());
-            timeInput.setText(program.getTitleOfActivity());
-            durationInput.setText(program.getTitleOfActivity());
-            notesInput.setText(program.getTitleOfActivity());
-            costInput.setText(program.getTitleOfActivity());
-            currencyInput.setText(program.getTitleOfActivity());
-            titleInput.setText(program.getTitleOfActivity());
-            programId = program.getId();
-        } else {
-            new NullPointerException();
-        }
-
-        btn_delete.setOnClickListener(new View.OnClickListener() {
+        // Button to send data to database
+        btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteProgram();
+                // Add program to Firebase
+                addNewProgram();
+                // Return back to main page
                 backToItineraryDisplay();
             }
         });
-
-        btn_edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editProgram();
-                backToItineraryDisplay();
-            }
-        });
-
     }
 
-    private void editProgram() {
+    @Override
+    public boolean onSupportNavigateUp() {
+        backToItineraryDisplay();
+        return true;
+    }
+
+    private void addNewProgram() {
         String title = titleInput.getText().toString();
         String type = typeInput.getText().toString();
         String date = dateInput.getText().toString();
@@ -108,23 +89,12 @@ public class ItineraryEdit extends AppCompatActivity {
         program.setNoteOfActivity(note);
         program.setCostOfActivity(cost);
         program.setCurrencyOfActivity(currency);
-        program.setId(programId);
         mDatabaseRef.child(programId).setValue(program);
     }
 
     private void backToItineraryDisplay() {
-        Intent intent = new Intent(ItineraryEdit.this, ItineraryDisplay.class);
+        Intent intent = new Intent(ItineraryAdd.this, ItineraryDisplay.class);
         startActivity(intent);
         finish();
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        backToItineraryDisplay();
-        return true;
-    }
-
-    private void deleteProgram() {
-        mDatabaseRef.child(programId).removeValue();
     }
 }

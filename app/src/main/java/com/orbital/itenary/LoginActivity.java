@@ -35,6 +35,10 @@ public class LoginActivity extends AppCompatActivity {
         textViewSignup = findViewById(R.id.link_signup);
         auth = FirebaseAuth.getInstance();
 
+        //Home button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         textViewSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
