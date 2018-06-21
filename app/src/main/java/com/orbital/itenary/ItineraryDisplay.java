@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +26,8 @@ public class ItineraryDisplay extends AppCompatActivity {
     private RecyclerView mRvProg;
     private ArrayList<ProgramClass> progList;
     private ProgramRvAdapter progRvAdapter;
+    private FirebaseUser user;
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,10 @@ public class ItineraryDisplay extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+
+        // Get details of user
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
 
         //Initialise fab
         fabAddItinerary = findViewById(R.id.fabAddNote);
@@ -68,7 +75,7 @@ public class ItineraryDisplay extends AppCompatActivity {
 
     private void getFirebaseData(final ProgCallBack progCallback) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://itenary-dc075.firebaseio.com/");
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Result will be holded Here

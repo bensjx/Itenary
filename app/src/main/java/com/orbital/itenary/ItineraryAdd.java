@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,6 +26,8 @@ public class ItineraryAdd extends AppCompatActivity {
     private Button btn_send;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseRef;
+    private FirebaseUser user;
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,10 @@ public class ItineraryAdd extends AppCompatActivity {
         costInput = findViewById(R.id.input_cost);
         currencyInput = findViewById(R.id.input_currency);
         btn_send = findViewById(R.id.btn_add);
+
+        // Get user id
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
 
         // Home button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -90,7 +98,7 @@ public class ItineraryAdd extends AppCompatActivity {
         program.setCostOfActivity(cost);
         program.setCurrencyOfActivity(currency);
         program.setId(programId);
-        mDatabaseRef.child(programId).setValue(program);
+        mDatabaseRef.child(uid).child(programId).setValue(program);
     }
 
     private void backToItineraryDisplay() {

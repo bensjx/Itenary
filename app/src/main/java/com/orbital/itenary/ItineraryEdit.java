@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,6 +26,8 @@ public class ItineraryEdit extends AppCompatActivity {
     private Button btn_delete;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseRef;
+    private FirebaseUser user;
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,10 @@ public class ItineraryEdit extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseRef = mDatabase.getReferenceFromUrl("https://itenary-dc075.firebaseio.com/");
         //mDatabaseRef.keepSynced(true);
+
+        // Get user id
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
 
         // Back button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -111,7 +119,7 @@ public class ItineraryEdit extends AppCompatActivity {
         program.setCostOfActivity(cost);
         program.setCurrencyOfActivity(currency);
         program.setId(programId);
-        mDatabaseRef.child(programId).setValue(program);
+        mDatabaseRef.child(uid).child(programId).setValue(program);
     }
 
     // Go back to display after button pressed
