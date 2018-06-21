@@ -19,9 +19,9 @@ public class ItineraryEdit extends AppCompatActivity {
     private EditText notesInput;
     private EditText costInput;
     private EditText currencyInput;
+    private String programId;
     private Button btn_edit;
     private Button btn_delete;
-    private String programId;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseRef;
 
@@ -39,16 +39,16 @@ public class ItineraryEdit extends AppCompatActivity {
         notesInput = findViewById(R.id.input_notes);
         costInput = findViewById(R.id.input_cost);
         currencyInput = findViewById(R.id.input_currency);
-        btn_edit = findViewById(R.id.btn_add);
+        btn_edit = findViewById(R.id.btn_edit);
         btn_delete = findViewById(R.id.btn_delete);
 
         // Initialise database with offline capability
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         mDatabase = FirebaseDatabase.getInstance();
-        mDatabaseRef = mDatabase.getReference("program");
-        mDatabaseRef.keepSynced(true);
+        mDatabaseRef = mDatabase.getReferenceFromUrl("https://itenary-dc075.firebaseio.com/");
+        //mDatabaseRef.keepSynced(true);
 
-        //Home button
+        // Back button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -58,18 +58,19 @@ public class ItineraryEdit extends AppCompatActivity {
             ProgramClass program = b.getParcelable("prog");
             titleInput.setText(program.getTitleOfActivity());
             typeInput.setText(program.getTypeOfActivity());
-            dateInput.setText(program.getTitleOfActivity());
-            timeInput.setText(program.getTitleOfActivity());
-            durationInput.setText(program.getTitleOfActivity());
-            notesInput.setText(program.getTitleOfActivity());
-            costInput.setText(program.getTitleOfActivity());
-            currencyInput.setText(program.getTitleOfActivity());
+            dateInput.setText(program.getDateOfActivity());
+            timeInput.setText(program.getTimeOfActivity());
+            durationInput.setText(program.getDurationOfActivity());
+            notesInput.setText(program.getNoteOfActivity());
+            costInput.setText(program.getCostOfActivity());
+            currencyInput.setText(program.getCurrencyOfActivity());
             titleInput.setText(program.getTitleOfActivity());
             programId = program.getId();
         } else {
             new NullPointerException();
         }
 
+        // Delete button
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +79,7 @@ public class ItineraryEdit extends AppCompatActivity {
             }
         });
 
+        // Make Changes button
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +90,7 @@ public class ItineraryEdit extends AppCompatActivity {
 
     }
 
+    // Make Changes button method
     private void editProgram() {
         String title = titleInput.getText().toString();
         String type = typeInput.getText().toString();
@@ -98,7 +101,6 @@ public class ItineraryEdit extends AppCompatActivity {
         String cost = costInput.getText().toString();
         String currency = currencyInput.getText().toString();
         // program object to store title and message
-        String programId = mDatabaseRef.push().getKey();
         ProgramClass program = new ProgramClass();
         program.setTitleOfActivity(title);
         program.setTypeOfActivity(type);
@@ -112,18 +114,21 @@ public class ItineraryEdit extends AppCompatActivity {
         mDatabaseRef.child(programId).setValue(program);
     }
 
+    // Go back to display after button pressed
     private void backToItineraryDisplay() {
         Intent intent = new Intent(ItineraryEdit.this, ItineraryDisplay.class);
         startActivity(intent);
         finish();
     }
 
+    // Back button
     @Override
     public boolean onSupportNavigateUp() {
         backToItineraryDisplay();
         return true;
     }
 
+    // Delete button method
     private void deleteProgram() {
         mDatabaseRef.child(programId).removeValue();
     }

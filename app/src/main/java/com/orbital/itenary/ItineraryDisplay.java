@@ -38,10 +38,6 @@ public class ItineraryDisplay extends AppCompatActivity {
             finish();
         }
 
-        //Home button
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         //Initialise fab
         fabAddItinerary = findViewById(R.id.fabAddNote);
         fabAddItinerary.setOnClickListener(new View.OnClickListener() {
@@ -50,9 +46,9 @@ public class ItineraryDisplay extends AppCompatActivity {
                 addNewItinerary();
             }
         });
+
         // Part 2: CRUD display
         progList = new ArrayList<>();
-        mRvProg = findViewById(R.id.recycleViewProg);
         mRvProg = findViewById(R.id.recycleViewProg);
         mRvProg.setHasFixedSize(true);
         progRvAdapter = new ProgramRvAdapter(this, progList);
@@ -71,9 +67,8 @@ public class ItineraryDisplay extends AppCompatActivity {
     }
 
     private void getFirebaseData(final ProgCallBack progCallback) {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference notesRef = reference.child("program");
-        notesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://itenary-dc075.firebaseio.com/");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Result will be holded Here

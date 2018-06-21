@@ -43,10 +43,6 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        //Home button
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

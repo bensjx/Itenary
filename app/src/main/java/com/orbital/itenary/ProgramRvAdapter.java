@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ProgramRvAdapter extends RecyclerView.Adapter<ProgramRvAdapter.ProgramClasssViewHolder> {
+public class ProgramRvAdapter extends RecyclerView.Adapter<ProgramRvAdapter.ProgramClassViewHolder> {
     private Context mContext;
     private List<ProgramClass> programList;
 
@@ -24,18 +24,18 @@ public class ProgramRvAdapter extends RecyclerView.Adapter<ProgramRvAdapter.Prog
 
     @NonNull
     @Override
-    public ProgramClasssViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ProgramClassViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view, parent, false);
-        ProgramClasssViewHolder progClassViewHolder = new ProgramClasssViewHolder(itemView);
+        ProgramClassViewHolder progClassVH = new ProgramClassViewHolder(itemView);
 
-        return progClassViewHolder;
+        return progClassVH;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProgramClasssViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull ProgramClassViewHolder holder, final int position) {
         final ProgramClass prog = programList.get(position);
         holder.mType.setText(prog.getTypeOfActivity());
-        holder.mTitle.setText(prog.getTypeOfActivity());
+        holder.mTitle.setText(prog.getTitleOfActivity());
         holder.mDate.setText(prog.getDateOfActivity());
         holder.mTime.setText(prog.getTimeOfActivity());
         holder.mDuration.setText(prog.getDurationOfActivity());
@@ -47,7 +47,7 @@ public class ProgramRvAdapter extends RecyclerView.Adapter<ProgramRvAdapter.Prog
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ItineraryEdit.class);
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("ProgramClass", prog);
+                bundle.putParcelable("prog", prog);
                 intent.putExtras(bundle);
                 view.getContext().startActivity(intent);
             }
@@ -60,7 +60,7 @@ public class ProgramRvAdapter extends RecyclerView.Adapter<ProgramRvAdapter.Prog
         return programList.size();
     }
 
-    public class ProgramClasssViewHolder extends RecyclerView.ViewHolder {
+    public class ProgramClassViewHolder extends RecyclerView.ViewHolder {
         public TextView mTitle;
         public TextView mType;
         public TextView mDate;
@@ -71,16 +71,16 @@ public class ProgramRvAdapter extends RecyclerView.Adapter<ProgramRvAdapter.Prog
         public TextView mCurrency;
         public CardView mCardView;
 
-        public ProgramClasssViewHolder(View view) {
+        public ProgramClassViewHolder(View view) {
             super(view);
-            mTitle = view.findViewById(R.id.input_title);
-            mType = view.findViewById(R.id.input_type);
-            mDate = view.findViewById(R.id.input_date);
-            mTime = view.findViewById(R.id.input_time);
-            mDuration = view.findViewById(R.id.input_duration);
-            mNotes = view.findViewById(R.id.input_notes);
-            mCost = view.findViewById(R.id.input_cost);
-            mCurrency = view.findViewById(R.id.input_currency);
+            mTitle = view.findViewById(R.id.titleActivity);
+            mType = view.findViewById(R.id.typeActivity);
+            mDate = view.findViewById(R.id.dateActivity);
+            mTime = view.findViewById(R.id.timeActivity);
+            mDuration = view.findViewById(R.id.durationActivity);
+            mNotes = view.findViewById(R.id.notesActivity);
+            mCost = view.findViewById(R.id.costActivity);
+            mCurrency = view.findViewById(R.id.currencyActivity);
             mCardView = view.findViewById(R.id.cardViewProg);
         }
     }

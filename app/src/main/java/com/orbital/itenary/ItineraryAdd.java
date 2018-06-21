@@ -28,7 +28,7 @@ public class ItineraryAdd extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_itinerary_edit);
+        setContentView(R.layout.activity_itinerary_add);
 
         // Initialise Widgets
         titleInput = findViewById(R.id.input_title);
@@ -46,10 +46,10 @@ public class ItineraryAdd extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         // Initialise database with offline capability
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         mDatabase = FirebaseDatabase.getInstance();
-        mDatabaseRef = mDatabase.getReference("program");
-        mDatabaseRef.keepSynced(true);
+        mDatabaseRef = mDatabase.getReferenceFromUrl("https://itenary-dc075.firebaseio.com/");
+        //mDatabaseRef.keepSynced(true);
 
         // Button to send data to database
         btn_send.setOnClickListener(new View.OnClickListener() {
@@ -78,8 +78,8 @@ public class ItineraryAdd extends AppCompatActivity {
         String note = notesInput.getText().toString();
         String cost = costInput.getText().toString();
         String currency = currencyInput.getText().toString();
-        // program object to store title and message
         String programId = mDatabaseRef.push().getKey();
+        // program object to store title and message
         ProgramClass program = new ProgramClass();
         program.setTitleOfActivity(title);
         program.setTypeOfActivity(type);
@@ -89,6 +89,7 @@ public class ItineraryAdd extends AppCompatActivity {
         program.setNoteOfActivity(note);
         program.setCostOfActivity(cost);
         program.setCurrencyOfActivity(currency);
+        program.setId(programId);
         mDatabaseRef.child(programId).setValue(program);
     }
 
