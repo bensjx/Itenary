@@ -6,8 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,39 +18,46 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ItineraryDisplay extends AppCompatActivity {
+public class ProgramDisplay extends AppCompatActivity {
 
-    private FloatingActionButton fabAddItinerary;
+    // Widget
+    private FloatingActionButton fabAddProgram;
+    // Firebase
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mDatabaseRef;
+    private String tripId;
+    // Firebase user
+    private FirebaseUser user;
+    private String uid;
+    // Recycler view
     private RecyclerView mRvProg;
     private ArrayList<ProgramClass> progList;
     private ProgramRvAdapter progRvAdapter;
-    private FirebaseUser user;
-    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_itinerary_display);
-        // Check if user is logged in
-        // If user is not logged in, direct user to login page
-        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-            Intent intent = new Intent(ItineraryDisplay.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        setContentView(R.layout.activity_program_display);
 
         // Get details of user
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
 
+        // Home button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         //Initialise fab
-        fabAddItinerary = findViewById(R.id.fabAddNote);
-        fabAddItinerary.setOnClickListener(new View.OnClickListener() {
+        fabAddProgram = findViewById(R.id.fabAddProgram);
+        fabAddProgram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addNewItinerary();
+                addNewProgram();
             }
         });
+
+        // Initialise database
+        mDatabaseRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://itenary-dc075.firebaseio.com/");
 
         // Part 2: CRUD display
         progList = new ArrayList<>();
@@ -74,8 +79,8 @@ public class ItineraryDisplay extends AppCompatActivity {
     }
 
     private void getFirebaseData(final ProgCallBack progCallback) {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://itenary-dc075.firebaseio.com/");
-        reference.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+        tripId = mDatabaseRef.child(uid).push().getKey();
+        mDatabaseRef.child(uid).child(tripId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Result will be holded Here
@@ -90,7 +95,8 @@ public class ItineraryDisplay extends AppCompatActivity {
                     String progNote = String.valueOf(dataSnap.child("noteOfActivity").getValue());
                     String progCost = String.valueOf(dataSnap.child("costOfActivity").getValue());
                     String progCurrency = String.valueOf(dataSnap.child("currencyOfActivity").getValue());
-                    prog.setId(progId);
+                    prog.setProgramId(progId);
+                    prog.setTripId(tripId);
                     prog.setTypeOfActivity(progType);
                     prog.setTitleOfActivity(progTitle);
                     prog.setDateOfActivity(progDate);
@@ -110,34 +116,23 @@ public class ItineraryDisplay extends AppCompatActivity {
         });
     }
 
-    private void addNewItinerary(){
-        Intent intent = new Intent(ItineraryDisplay.this, ItineraryAdd.class);
+    private void addNewProgram(){
+        Intent intent = new Intent(ProgramDisplay.this, ProgramAdd.class);
         startActivity(intent);
     }
 
-    //menu for logout
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_logout, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.logout:
-                userLogout();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    // Signout User and return user to LoginActivity
-    private void userLogout() {
-        FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(ItineraryDisplay.this, LoginActivity.class);
+    // Back button
+    private void backToMainPage() {
+        Intent intent = new Intent(ProgramDisplay.this, TripDisplay.class);
         startActivity(intent);
         finish();
+    }
+
+    // Back button
+    @Override
+    public boolean onSupportNavigateUp() {
+        backToMainPage();
+        return true;
     }
 
 

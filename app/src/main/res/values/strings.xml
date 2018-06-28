@@ -15,4 +15,7 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="logo_description">Logo</string>
+    <string name="title_activity_new_itinerary">newItinerary</string>
+    <string name="title_activity_enter_title_of_trip">EnterTitleOfTrip</string>
+    <string name="databaseURL">https://itenary-dc075.firebaseio.com/</string>
 </resources>

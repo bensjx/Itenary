@@ -3,8 +3,6 @@ package com.orbital.itenary;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +12,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class ItineraryAdd extends AppCompatActivity {
+public class ProgramAdd extends AppCompatActivity {
     private EditText titleInput;
     private EditText typeInput;
     private EditText dateInput;
@@ -23,16 +21,20 @@ public class ItineraryAdd extends AppCompatActivity {
     private EditText notesInput;
     private EditText costInput;
     private EditText currencyInput;
+
     private Button btn_send;
+
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseRef;
+
     private FirebaseUser user;
     private String uid;
+    private String tripId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_itinerary_add);
+        setContentView(R.layout.activity_program_add);
 
         // Initialise Widgets
         titleInput = findViewById(R.id.input_title);
@@ -66,15 +68,9 @@ public class ItineraryAdd extends AppCompatActivity {
                 // Add program to Firebase
                 addNewProgram();
                 // Return back to main page
-                backToItineraryDisplay();
+                backToProgramDisplay();
             }
         });
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        backToItineraryDisplay();
-        return true;
     }
 
     private void addNewProgram() {
@@ -97,12 +93,18 @@ public class ItineraryAdd extends AppCompatActivity {
         program.setNoteOfActivity(note);
         program.setCostOfActivity(cost);
         program.setCurrencyOfActivity(currency);
-        program.setId(programId);
-        mDatabaseRef.child(uid).child(programId).setValue(program);
+        program.setTripId(tripId);
+        program.setProgramId(programId);
+        mDatabaseRef.child(uid).child(tripId).child(programId).setValue(program);
     }
 
-    private void backToItineraryDisplay() {
-        Intent intent = new Intent(ItineraryAdd.this, ItineraryDisplay.class);
+    @Override
+    public boolean onSupportNavigateUp() {
+        backToProgramDisplay();
+        return true;
+    }
+    private void backToProgramDisplay() {
+        Intent intent = new Intent(ProgramAdd.this, ProgramDisplay.class);
         startActivity(intent);
         finish();
     }

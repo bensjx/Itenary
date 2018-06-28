@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ItineraryAdd">
+    tools:context=".ProgramAdd">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -85,10 +85,17 @@
             android:text="" />
 
         <Button
-            android:id="@+id/btn_add"
+            android:id="@+id/btn_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/appColor"
-            android:text="Create Activity" />
+            android:text="Make Changes" />
+
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_red_dark"
+            android:text="DELETE" />
     </LinearLayout>
 </ScrollView>

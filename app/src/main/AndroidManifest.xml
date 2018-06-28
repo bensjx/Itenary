@@ -19,9 +19,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignupActivity" />
-        <activity android:name=".ItineraryDisplay" />
-        <activity android:name=".ItineraryAdd" />
-        <activity android:name=".ItineraryEdit"></activity>
+        <activity android:name=".ProgramDisplay" />
+        <activity android:name=".ProgramAdd" />
+        <activity android:name=".ProgramEdit" />
+        <activity android:name=".InviteUsers" />
+        <activity android:name=".TripDisplay" />
+        <activity android:name=".newProgramDisplay" />
+        <activity android:name=".newProgramAdd" />
+        <activity android:name=".EnterTitleOfTrip"></activity>
     </application>
 
 </manifest>

@@ -25,7 +25,7 @@ public class ProgramRvAdapter extends RecyclerView.Adapter<ProgramRvAdapter.Prog
     @NonNull
     @Override
     public ProgramClassViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_program, parent, false);
         ProgramClassViewHolder progClassVH = new ProgramClassViewHolder(itemView);
 
         return progClassVH;
@@ -45,7 +45,7 @@ public class ProgramRvAdapter extends RecyclerView.Adapter<ProgramRvAdapter.Prog
         holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ItineraryEdit.class);
+                Intent intent = new Intent(view.getContext(), ProgramEdit.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("prog", prog);
                 intent.putExtras(bundle);

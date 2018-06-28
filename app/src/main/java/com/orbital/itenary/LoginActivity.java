@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                                         // error occurred
                                         Toast.makeText(LoginActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        Intent intent = new Intent(LoginActivity.this, ItineraryDisplay.class);
+                                        Intent intent = new Intent(LoginActivity.this, TripDisplay.class);
                                         startActivity(intent);
                                         finish();
                                     }

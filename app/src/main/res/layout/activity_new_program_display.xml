@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ItineraryDisplay">
+    tools:context=".newProgramDisplay">
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabAddNote"
+        android:id="@+id/fabAddNewProgram"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginBottom="16dp"
@@ -18,12 +18,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycleViewProg"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

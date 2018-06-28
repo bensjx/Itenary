@@ -3,6 +3,8 @@ package com.orbital.itenary;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 public class ProgramClass implements Parcelable{
     private String typeOfActivity;
     private String titleOfActivity;
@@ -12,21 +14,26 @@ public class ProgramClass implements Parcelable{
     private String noteOfActivity;
     private String costOfActivity;
     private String currencyOfActivity;
-    private String id;
+    private String programId;
+    private String tripId;
+
+    private ArrayList<String> allowedUser;
 
     //constructors
     public ProgramClass(){
     }
 
-    public ProgramClass(String typeOfActivity, String titleOfActivity, String dateOfActivity, String timeOfActivity, String durationOfActivity, String noteOfActivity, String costOfActivity, String currencyOfActivity) {
+    public ProgramClass(String typeOfActivity, String titleOfActivity, String dateOfActivity, String timeOfActivity, String durationOfActivity, String noteOfActivity, String costOfActivity, String currencyOfActivity, String programId, String tripId) {
         this.typeOfActivity = typeOfActivity;
         this.titleOfActivity = titleOfActivity;
         this.dateOfActivity = dateOfActivity;
         this.timeOfActivity = timeOfActivity;
         this.durationOfActivity = durationOfActivity;
-        //this.noteOfActivity = noteOfActivity;
-        //this.costOfActivity = costOfActivity;
-        //this.currencyOfActivity = currencyOfActivity;
+        this.noteOfActivity = noteOfActivity;
+        this.costOfActivity = costOfActivity;
+        this.currencyOfActivity = currencyOfActivity;
+        this.programId = programId;
+        this.tripId = tripId;
     }
 
     //getters
@@ -62,9 +69,14 @@ public class ProgramClass implements Parcelable{
         return currencyOfActivity;
     }
 
-    public String getId() {
-        return id;
+    public String getProgramId() {
+        return programId;
     }
+
+    public String getTripId() {
+        return tripId;
+    }
+
 
     //setters
 
@@ -100,8 +112,12 @@ public class ProgramClass implements Parcelable{
         this.currencyOfActivity = currencyOfActivity;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setProgramId(String progId) {
+        this.programId = progId;
+    }
+
+    public void setTripId(String tripId) {
+        this.tripId = tripId;
     }
 
     @Override
@@ -111,7 +127,7 @@ public class ProgramClass implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
+        dest.writeString(programId);
         dest.writeString(typeOfActivity);
         dest.writeString(titleOfActivity);
         dest.writeString(dateOfActivity);
@@ -120,11 +136,13 @@ public class ProgramClass implements Parcelable{
         dest.writeString(noteOfActivity);
         dest.writeString(costOfActivity);
         dest.writeString(currencyOfActivity);
+        dest.writeString(tripId);
 
     }
 
     public ProgramClass(Parcel source) {
-        this.id = source.readString();
+        this.tripId = source.readString();
+        this.programId = source.readString();
         this.typeOfActivity = source.readString();
         this.titleOfActivity = source.readString();
         this.dateOfActivity = source.readString();
