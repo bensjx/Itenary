@@ -39,7 +39,7 @@ public class TripDisplay extends AppCompatActivity {
     private ArrayList<ProgramClass> tripList;
     private TripRvAdapter tripRvAdapter;
 
-    FirebaseRecyclerAdapter<String, TripViewHolder> tripRecyclerAdapter;
+    FirebaseRecyclerAdapter<EnterTitleTripClass, TripViewHolder> tripRecyclerAdapter;
     private RecyclerView recyclerview;
 
     @Override
@@ -56,10 +56,14 @@ public class TripDisplay extends AppCompatActivity {
 
         recyclerview = findViewById(R.id.recycleViewTrip);
         recyclerview.setLayoutManager(new LinearLayoutManager(TripDisplay.this));
-        tripRecyclerAdapter = new FirebaseRecyclerAdapter<String, TripViewHolder>(String, R.id.cardViewTrip,TripViewHolder.class, mDatabaseRef){
-
-        }
-
+        tripRecyclerAdapter = new FirebaseRecyclerAdapter<EnterTitleTripClass, TripViewHolder>(EnterTitleTripClass.class,
+                R.layout.card_view_trip, TripViewHolder.class, mDatabaseRef) {
+            @Override
+            protected void populateViewHolder(TripViewHolder viewHolder, EnterTitleTripClass model, int position) {
+                viewHolder.txtView.setText(model.getTitleTrip());
+            }
+        };
+        recyclerview.setAdapter(tripRecyclerAdapter);
 
 
         // Get details of user
@@ -80,7 +84,7 @@ public class TripDisplay extends AppCompatActivity {
 
 
         // Part 2: CRUD display
-        tripList = new ArrayList<>();
+        /*tripList = new ArrayList<>();
         mRvTrip = findViewById(R.id.recycleViewTrip);
         mRvTrip.setHasFixedSize(true);
         tripRvAdapter = new TripRvAdapter(this, tripList);
@@ -94,11 +98,11 @@ public class TripDisplay extends AppCompatActivity {
                 tripList.add(prog);
                 tripRvAdapter.notifyDataSetChanged();
             }
-        });
+        });*/
 
     }
 
-    private void getFirebaseData(final ProgCallBack progCallback) {
+    /*private void getFirebaseData(final ProgCallBack progCallback) {
         tripId = mDatabaseRef.child(uid).push().getKey();
         mDatabaseRef.child(uid).child(tripId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -127,7 +131,7 @@ public class TripDisplay extends AppCompatActivity {
                 // Handle db error
             }
         });
-    }
+    }*/
 
     private void addNewTrip(){
         Intent intent = new Intent(TripDisplay.this, EnterTitleOfTrip.class);
