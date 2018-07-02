@@ -3,6 +3,7 @@ package com.orbital.itenary;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class ProgramEdit extends AppCompatActivity {
+
+    // Widgets
     private EditText titleInput;
     private EditText typeInput;
     private EditText dateInput;
@@ -21,14 +24,25 @@ public class ProgramEdit extends AppCompatActivity {
     private EditText notesInput;
     private EditText costInput;
     private EditText currencyInput;
-    private String programId;
-    private String tripId;
+
     private Button btn_edit;
     private Button btn_delete;
+
+    // Data
+    private String programId;
+    private String tripId;
+    private String tripTitle;
+
+    // Firebase
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseRef;
+
+    // Firebase User
     private FirebaseUser user;
     private String uid;
+
+    // Bundles
+    private Bundle b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +76,9 @@ public class ProgramEdit extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         // Get Note from bundle
-        Bundle b = this.getIntent().getExtras();
+        b = this.getIntent().getExtras();
         if (b != null){
-            ProgramClass program = b.getParcelable("prog");
+            ProgramClass program = b.getParcelable("progDisplayToProgEdit");
             titleInput.setText(program.getTitleOfActivity());
             typeInput.setText(program.getTypeOfActivity());
             dateInput.setText(program.getDateOfActivity());
@@ -76,6 +90,7 @@ public class ProgramEdit extends AppCompatActivity {
             titleInput.setText(program.getTitleOfActivity());
             programId = program.getProgramId();
             tripId = program.getTripId();
+            tripTitle = program.getTripTitle();
         } else {
             new NullPointerException();
         }
@@ -85,7 +100,7 @@ public class ProgramEdit extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 deleteProgram();
-                backToItineraryDisplay();
+                backToProgramDisplay();
             }
         });
 
@@ -94,7 +109,6 @@ public class ProgramEdit extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 editProgram();
-                backToItineraryDisplay();
             }
         });
 
@@ -122,12 +136,21 @@ public class ProgramEdit extends AppCompatActivity {
         program.setCurrencyOfActivity(currency);
         program.setProgramId(programId);
         program.setTripId(tripId);
-        mDatabaseRef.child(uid).child(tripId).child(programId).setValue(program);
+        program.setTripTitle(tripTitle);
+        // Pass it back to Program Display
+        Intent intent = new Intent(ProgramEdit.this, ProgramDisplay.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("progEditToProgDisplay", program);
+        intent.putExtras(bundle);
+        mDatabaseRef.child(tripId).child("programs").child(programId).setValue(program);
+        startActivity(intent);
     }
 
     // Go back to display after button pressed
-    private void backToItineraryDisplay() {
+    private void backToProgramDisplay() {
+        // Pass it back to Program Display
         Intent intent = new Intent(ProgramEdit.this, ProgramDisplay.class);
+        intent.putExtras(b);
         startActivity(intent);
         finish();
     }
@@ -135,12 +158,12 @@ public class ProgramEdit extends AppCompatActivity {
     // Back button
     @Override
     public boolean onSupportNavigateUp() {
-        backToItineraryDisplay();
+        backToProgramDisplay();
         return true;
     }
 
     // Delete button method
     private void deleteProgram() {
-        mDatabaseRef.child(uid).child(tripId).child(programId).removeValue();
+        mDatabaseRef.child(tripId).child("programs").child(programId).removeValue();
     }
 }

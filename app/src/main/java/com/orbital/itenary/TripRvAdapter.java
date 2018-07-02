@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,35 +14,34 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class TripRvAdapter extends RecyclerView.Adapter<TripRvAdapter.TripClassViewHolder> {
+public class TripRvAdapter extends RecyclerView.Adapter<TripRvAdapter.TripViewHolder> {
     private Context mContext;
-    private List<ProgramClass> programList;
-    private titleTrip;
+    private List<ProgramClass> tripList;
 
-    public TripRvAdapter(Context context, List<ProgramClass> progClass){
+    public TripRvAdapter(Context context, List<ProgramClass> programClass){
         mContext = context;
-        programList = progClass;
+        tripList = programClass;
     }
 
     @NonNull
     @Override
-    public TripClassViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TripViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_trip, parent, false);
-        TripClassViewHolder tripClassVH = new TripClassViewHolder(itemView);
+        TripViewHolder programClassVH = new TripViewHolder(itemView);
 
-        return tripClassVH;
+        return programClassVH;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TripClassViewHolder holder, final int position) {
-        final ProgramClass prog = programList.get(position);
-        holder.tripTitle.setText(tripTitle);
+    public void onBindViewHolder(@NonNull TripViewHolder holder, final int position) {
+        final ProgramClass trip = tripList.get(position);
+        holder.mTitle.setText(trip.getTripTitle());
         holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ProgramDisplay.class);
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("prog", prog);
+                bundle.putParcelable("tripToProgDisplay", trip);
                 intent.putExtras(bundle);
                 view.getContext().startActivity(intent);
             }
@@ -51,16 +51,16 @@ public class TripRvAdapter extends RecyclerView.Adapter<TripRvAdapter.TripClassV
 
     @Override
     public int getItemCount() {
-        return programList.size();
+        return tripList.size();
     }
 
-    public class TripClassViewHolder extends RecyclerView.ViewHolder {
-        public TextView tripTitle;
+    public class TripViewHolder extends RecyclerView.ViewHolder {
+        public TextView mTitle;
         public CardView mCardView;
 
-        public TripClassViewHolder(View view) {
+        public TripViewHolder(View view) {
             super(view);
-            tripTitle = view.findViewById(R.id.tripTitle);
+            mTitle = view.findViewById(R.id.tripTitle);
             mCardView = view.findViewById(R.id.cardViewTrip);
         }
     }

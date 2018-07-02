@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,7 +26,10 @@ public class ProgramDisplay extends AppCompatActivity {
     // Firebase
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseRef;
-    private String tripId;
+    // Data
+    private String tripId; //shared within the same programDisplay
+    private String tripTitle; //shared within the same programDisplay
+    private ProgramClass program;
     // Firebase user
     private FirebaseUser user;
     private String uid;
@@ -38,6 +42,31 @@ public class ProgramDisplay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_program_display);
+
+        // Get Note from bundle
+
+        //tripId = this.getIntent().getStringExtra("tripToPDTripId"); //pass this thing around
+        //tripTitle = this.getIntent().getStringExtra("tripToPDTripTitle");
+        Bundle b = this.getIntent().getExtras();
+        if (b != null){
+            if (b.getParcelable("tripToProgDisplay") != null) {
+                program = b.getParcelable("tripToProgDisplay");
+            } else if (b.getParcelable("progDisplayToProgEdit") != null) {
+                program = b.getParcelable("progDisplayToProgEdit");
+            } else if (b.getParcelable("progEditToProgDisplay") != null){
+                program = b.getParcelable("progEditToProgDisplay");
+            } else if (b.getParcelable("progAddToProgDisplay")!=null){
+                program = b.getParcelable("progAddToProgDisplay");
+            } else if (b.getParcelable("progDisplayToProgAdd") != null) {
+                program = b.getParcelable("progDisplayToProgAdd");
+            } else {
+                new NullPointerException();
+            }
+            tripId = program.getTripId();
+            tripTitle = program.getTripTitle();
+        } else {
+            new NullPointerException();
+        }
 
         // Get details of user
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -60,10 +89,12 @@ public class ProgramDisplay extends AppCompatActivity {
         mDatabaseRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://itenary-dc075.firebaseio.com/");
 
         // Part 2: CRUD display
-        progList = new ArrayList<>();
         mRvProg = findViewById(R.id.recycleViewProg);
         mRvProg.setHasFixedSize(true);
+
+        progList = new ArrayList<>();
         progRvAdapter = new ProgramRvAdapter(this, progList);
+
         mRvProg.setAdapter(progRvAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRvProg.setLayoutManager(linearLayoutManager);
@@ -76,17 +107,17 @@ public class ProgramDisplay extends AppCompatActivity {
             }
         });
 
+
     }
 
     private void getFirebaseData(final ProgCallBack progCallback) {
-        tripId = mDatabaseRef.child(uid).push().getKey();
-        mDatabaseRef.child(uid).child(tripId).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabaseRef.child(tripId).child("programs").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Result will be holded Here
                 for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
                     ProgramClass prog = new ProgramClass();
-                    String progId = String.valueOf(dataSnap.child("id").getValue());
+                    String progId = String.valueOf(dataSnap.child("programId").getValue());
                     String progType = String.valueOf(dataSnap.child("typeOfActivity").getValue());
                     String progTitle = String.valueOf(dataSnap.child("titleOfActivity").getValue());
                     String progDate = String.valueOf(dataSnap.child("dateOfActivity").getValue());
@@ -96,6 +127,7 @@ public class ProgramDisplay extends AppCompatActivity {
                     String progCost = String.valueOf(dataSnap.child("costOfActivity").getValue());
                     String progCurrency = String.valueOf(dataSnap.child("currencyOfActivity").getValue());
                     prog.setProgramId(progId);
+                    prog.setTripTitle(tripTitle);
                     prog.setTripId(tripId);
                     prog.setTypeOfActivity(progType);
                     prog.setTitleOfActivity(progTitle);
@@ -118,11 +150,14 @@ public class ProgramDisplay extends AppCompatActivity {
 
     private void addNewProgram(){
         Intent intent = new Intent(ProgramDisplay.this, ProgramAdd.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("progDisplayToProgAdd", program);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
     // Back button
-    private void backToMainPage() {
+    private void backToTripDisplay() {
         Intent intent = new Intent(ProgramDisplay.this, TripDisplay.class);
         startActivity(intent);
         finish();
@@ -131,10 +166,8 @@ public class ProgramDisplay extends AppCompatActivity {
     // Back button
     @Override
     public boolean onSupportNavigateUp() {
-        backToMainPage();
+        backToTripDisplay();
         return true;
     }
-
-
 
 }

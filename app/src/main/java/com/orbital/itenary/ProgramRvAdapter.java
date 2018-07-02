@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,7 @@ public class ProgramRvAdapter extends RecyclerView.Adapter<ProgramRvAdapter.Prog
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ProgramEdit.class);
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("prog", prog);
+                bundle.putParcelable("progDisplayToProgEdit", prog);
                 intent.putExtras(bundle);
                 view.getContext().startActivity(intent);
             }

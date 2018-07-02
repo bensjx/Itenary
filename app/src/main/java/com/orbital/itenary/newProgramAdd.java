@@ -27,6 +27,7 @@ public class newProgramAdd extends AppCompatActivity {
     private FirebaseUser user;
     private String uid;
     private String existingTripId;
+    private String existingTripTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class newProgramAdd extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null){
             existingTripId = intent.getStringExtra("tripId");
+            existingTripTitle = intent.getStringExtra("titleTrip");
         }
 
         // Initialise Widgets
@@ -104,6 +106,7 @@ public class newProgramAdd extends AppCompatActivity {
         program.setCurrencyOfActivity(currency);
         program.setTripId(existingTripId);
         program.setProgramId(programId);
+        program.setTripTitle(existingTripTitle);
         mDatabaseRef.child(existingTripId).child("programs").child(programId).setValue(program);
     }
 

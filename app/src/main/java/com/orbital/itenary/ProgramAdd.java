@@ -13,6 +13,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class ProgramAdd extends AppCompatActivity {
+
+    // Widgets
     private EditText titleInput;
     private EditText typeInput;
     private EditText dateInput;
@@ -21,15 +23,23 @@ public class ProgramAdd extends AppCompatActivity {
     private EditText notesInput;
     private EditText costInput;
     private EditText currencyInput;
-
     private Button btn_send;
 
+    // Data
+    private String tripId;
+    private String tripTitle;
+
+    // Firebase
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseRef;
 
+    // Firebase User
     private FirebaseUser user;
     private String uid;
-    private String tripId;
+
+    // Bundles
+    private Bundle b;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,16 +71,25 @@ public class ProgramAdd extends AppCompatActivity {
         mDatabaseRef = mDatabase.getReferenceFromUrl("https://itenary-dc075.firebaseio.com/");
         //mDatabaseRef.keepSynced(true);
 
+        // Get Note from bundle
+        b = this.getIntent().getExtras();
+        if (b != null){
+            ProgramClass program = b.getParcelable("progDisplayToProgAdd");
+            tripTitle = program.getTripTitle();
+            tripId = program.getTripId();
+        } else {
+            new NullPointerException();
+        }
+
         // Button to send data to database
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Add program to Firebase
                 addNewProgram();
-                // Return back to main page
-                backToProgramDisplay();
             }
         });
+
     }
 
     private void addNewProgram() {
@@ -93,9 +112,16 @@ public class ProgramAdd extends AppCompatActivity {
         program.setNoteOfActivity(note);
         program.setCostOfActivity(cost);
         program.setCurrencyOfActivity(currency);
+        program.setTripTitle(tripTitle);
         program.setTripId(tripId);
         program.setProgramId(programId);
-        mDatabaseRef.child(uid).child(tripId).child(programId).setValue(program);
+        // Pass it back to Program Display
+        Intent intent = new Intent(ProgramAdd.this, ProgramDisplay.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("progAddToProgDisplay", program);
+        intent.putExtras(bundle);
+        mDatabaseRef.child(tripId).child("programs").child(programId).setValue(program);
+        startActivity(intent);
     }
 
     @Override
@@ -105,6 +131,7 @@ public class ProgramAdd extends AppCompatActivity {
     }
     private void backToProgramDisplay() {
         Intent intent = new Intent(ProgramAdd.this, ProgramDisplay.class);
+        intent.putExtras(b);
         startActivity(intent);
         finish();
     }

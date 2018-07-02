@@ -24,6 +24,10 @@ public class EnterTitleOfTrip extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_title_of_trip);
 
+        // Home button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         edtTitleTrip = findViewById(R.id.input_trip_title);
         btnTitleTrip = findViewById(R.id.btn_title_trip);
         mDatabase = FirebaseDatabase.getInstance();
@@ -35,10 +39,23 @@ public class EnterTitleOfTrip extends AppCompatActivity {
             public void onClick(View v) {
                 mDatabaseRef.child(newTripId).child("Title").setValue(edtTitleTrip.getText().toString());
                 Intent intent = new Intent(EnterTitleOfTrip.this, newProgramAdd.class);
+                intent.putExtra("titleTrip", edtTitleTrip.getText().toString());
                 intent.putExtra("tripId",newTripId);
                 startActivity(intent);
             }
         });
+    }
+    // Back button
+    private void backToTripDisplay() {
+        Intent intent = new Intent(EnterTitleOfTrip.this, TripDisplay.class);
+        startActivity(intent);
+        finish();
+    }
 
+    // Back button
+    @Override
+    public boolean onSupportNavigateUp() {
+        backToTripDisplay();
+        return true;
     }
 }

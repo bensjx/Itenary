@@ -3,8 +3,6 @@ package com.orbital.itenary;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
-
 public class ProgramClass implements Parcelable{
     private String typeOfActivity;
     private String titleOfActivity;
@@ -16,14 +14,13 @@ public class ProgramClass implements Parcelable{
     private String currencyOfActivity;
     private String programId;
     private String tripId;
-
-    private ArrayList<String> allowedUser;
+    private String tripTitle;
 
     //constructors
     public ProgramClass(){
     }
 
-    public ProgramClass(String typeOfActivity, String titleOfActivity, String dateOfActivity, String timeOfActivity, String durationOfActivity, String noteOfActivity, String costOfActivity, String currencyOfActivity, String programId, String tripId) {
+    public ProgramClass(String typeOfActivity, String titleOfActivity, String dateOfActivity, String timeOfActivity, String durationOfActivity, String noteOfActivity, String costOfActivity, String currencyOfActivity, String programId, String tripId, String tripTitle) {
         this.typeOfActivity = typeOfActivity;
         this.titleOfActivity = titleOfActivity;
         this.dateOfActivity = dateOfActivity;
@@ -34,6 +31,7 @@ public class ProgramClass implements Parcelable{
         this.currencyOfActivity = currencyOfActivity;
         this.programId = programId;
         this.tripId = tripId;
+        this.tripTitle = tripTitle;
     }
 
     //getters
@@ -77,6 +75,9 @@ public class ProgramClass implements Parcelable{
         return tripId;
     }
 
+    public String getTripTitle() {
+        return tripTitle;
+    }
 
     //setters
 
@@ -120,6 +121,10 @@ public class ProgramClass implements Parcelable{
         this.tripId = tripId;
     }
 
+    public void setTripTitle(String tripTitle) {
+        this.tripTitle = tripTitle;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -127,7 +132,6 @@ public class ProgramClass implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(programId);
         dest.writeString(typeOfActivity);
         dest.writeString(titleOfActivity);
         dest.writeString(dateOfActivity);
@@ -136,13 +140,13 @@ public class ProgramClass implements Parcelable{
         dest.writeString(noteOfActivity);
         dest.writeString(costOfActivity);
         dest.writeString(currencyOfActivity);
+        dest.writeString(programId);
         dest.writeString(tripId);
+        dest.writeString(tripTitle);
 
     }
 
     public ProgramClass(Parcel source) {
-        this.tripId = source.readString();
-        this.programId = source.readString();
         this.typeOfActivity = source.readString();
         this.titleOfActivity = source.readString();
         this.dateOfActivity = source.readString();
@@ -151,6 +155,9 @@ public class ProgramClass implements Parcelable{
         this.noteOfActivity = source.readString();
         this.costOfActivity = source.readString();
         this.currencyOfActivity = source.readString();
+        this.programId = source.readString();
+        this.tripId = source.readString();
+        this.tripTitle = source.readString();
     }
 
 
