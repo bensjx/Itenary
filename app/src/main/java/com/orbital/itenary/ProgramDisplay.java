@@ -46,9 +46,6 @@ public class ProgramDisplay extends AppCompatActivity {
         setContentView(R.layout.activity_program_display);
 
         // Get Note from bundle
-
-        //tripId = this.getIntent().getStringExtra("tripToPDTripId"); //pass this thing around
-        //tripTitle = this.getIntent().getStringExtra("tripToPDTripTitle");
         Bundle b = this.getIntent().getExtras();
         if (b != null){
             if (b.getParcelable("tripToProgDisplay") != null) {
@@ -116,7 +113,7 @@ public class ProgramDisplay extends AppCompatActivity {
         mDatabaseRef.child(tripId).child("programs").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // Result will be holded Here
+                // Result will be held Here
                 for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
                     ProgramClass prog = new ProgramClass();
                     String progId = String.valueOf(dataSnap.child("programId").getValue());

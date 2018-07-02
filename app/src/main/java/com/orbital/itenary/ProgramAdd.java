@@ -65,11 +65,8 @@ public class ProgramAdd extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        // Initialise database with offline capability
-        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseRef = mDatabase.getReferenceFromUrl("https://itenary-dc075.firebaseio.com/");
-        //mDatabaseRef.keepSynced(true);
 
         // Get Note from bundle
         b = this.getIntent().getExtras();

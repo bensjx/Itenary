@@ -58,7 +58,6 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Enter Password", Toast.LENGTH_SHORT).show();
                 }
 
-                // Set your own additional constraints
 
                 //authenticate user
                 else {

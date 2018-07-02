@@ -60,11 +60,8 @@ public class newProgramAdd extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        // Initialise database with offline capability
-        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseRef = mDatabase.getReferenceFromUrl("https://itenary-dc075.firebaseio.com/");
-        //mDatabaseRef.keepSynced(true);
 
         // Button to send data to database
         btn_send.setOnClickListener(new View.OnClickListener() {

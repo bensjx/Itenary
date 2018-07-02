@@ -61,11 +61,8 @@ public class ProgramEdit extends AppCompatActivity {
         btn_edit = findViewById(R.id.btn_edit);
         btn_delete = findViewById(R.id.btn_delete);
 
-        // Initialise database with offline capability
-        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseRef = mDatabase.getReferenceFromUrl("https://itenary-dc075.firebaseio.com/");
-        //mDatabaseRef.keepSynced(true);
 
         // Get user id
         user = FirebaseAuth.getInstance().getCurrentUser();

@@ -43,6 +43,7 @@ public class TripDisplay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_display);
+        
         // Check if user is logged in
         // If user is not logged in, direct user to login page
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
