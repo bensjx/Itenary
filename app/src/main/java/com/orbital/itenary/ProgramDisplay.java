@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -169,5 +171,28 @@ public class ProgramDisplay extends AppCompatActivity {
         backToTripDisplay();
         return true;
     }
+    //menu for logout
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_delete_trip, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.delete_trip:
+                deleteTrip();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    // Signout User and return user to LoginActivity
+    private void deleteTrip() {
+        mDatabaseRef.child(tripId).removeValue();
+        Intent intent = new Intent(ProgramDisplay.this, TripDisplay.class);
+        startActivity(intent);
+        finish();
+    }
 }
