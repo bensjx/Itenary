@@ -117,7 +117,7 @@ public class ProgramAdd extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putParcelable("progAddToProgDisplay", program);
         intent.putExtras(bundle);
-        mDatabaseRef.child(tripId).child("programs").child(programId).setValue(program);
+        mDatabaseRef.child("trips").child(tripId).child("programs").child(programId).setValue(program);
         startActivity(intent);
     }
 

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,7 +44,7 @@ public class TripDisplay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_display);
-        
+
         // Check if user is logged in
         // If user is not logged in, direct user to login page
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
@@ -90,11 +91,12 @@ public class TripDisplay extends AppCompatActivity {
     }
 
     private void getFirebaseData(final ProgCallBack progCallBack) {
-        mDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabaseRef.child("trips").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Result will be held Here
                 for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
+                    Log.d("tracker for dsn", dataSnap.child("Title").getValue().toString());
                     ProgramClass trip = new ProgramClass();
                     String tripId = String.valueOf(dataSnap.getKey());
                     String tripTitle = String.valueOf(dataSnap.child("Title").getValue());

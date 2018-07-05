@@ -139,7 +139,7 @@ public class ProgramEdit extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putParcelable("progEditToProgDisplay", program);
         intent.putExtras(bundle);
-        mDatabaseRef.child(tripId).child("programs").child(programId).setValue(program);
+        mDatabaseRef.child("trips").child(tripId).child("programs").child(programId).setValue(program);
         startActivity(intent);
     }
 
@@ -161,6 +161,6 @@ public class ProgramEdit extends AppCompatActivity {
 
     // Delete button method
     private void deleteProgram() {
-        mDatabaseRef.child(tripId).child("programs").child(programId).removeValue();
+        mDatabaseRef.child("trips").child(tripId).child("programs").child(programId).removeValue();
     }
 }

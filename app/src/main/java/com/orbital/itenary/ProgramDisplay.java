@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -58,6 +59,8 @@ public class ProgramDisplay extends AppCompatActivity {
                 program = b.getParcelable("progAddToProgDisplay");
             } else if (b.getParcelable("progDisplayToProgAdd") != null) {
                 program = b.getParcelable("progDisplayToProgAdd");
+            } else if(b.getParcelable("progInviteUsersToProgDisplay") != null){
+                program = b.getParcelable("progInviteUsersToProgDisplay");
             } else {
                 new NullPointerException();
             }
@@ -110,7 +113,7 @@ public class ProgramDisplay extends AppCompatActivity {
     }
 
     private void getFirebaseData(final ProgCallBack progCallback) {
-        mDatabaseRef.child(tripId).child("programs").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabaseRef.child("trips").child(tripId).child("programs").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Result will be held Here
@@ -171,25 +174,47 @@ public class ProgramDisplay extends AppCompatActivity {
     //menu for logout
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_delete_trip, menu);
+        getMenuInflater().inflate(R.menu.menu_programdisplay, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.delete_trip:
+            case R.id.menu_invite_users:
+                inviteUsers();
+                return true;
+            case R.id.menu_delete_trip_yes:
                 deleteTrip();
+                return true;
+            case R.id.menu_delete_trip_no:
+                doNotDeleteTrip();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    // Signout User and return user to LoginActivity
+    // Delete trip and go back to Trip Display
     private void deleteTrip() {
-        mDatabaseRef.child(tripId).removeValue();
+        mDatabaseRef.child("trips").child(tripId).removeValue();
         Intent intent = new Intent(ProgramDisplay.this, TripDisplay.class);
         startActivity(intent);
         finish();
     }
+
+    // Prevent users from accidentally deleting a trip
+    private void doNotDeleteTrip() {
+        Toast.makeText(this,"Crisis Avoided",Toast.LENGTH_SHORT).show();
+    }
+
+    // Invite users to this trip
+    private void inviteUsers() {
+        Intent intent = new Intent(ProgramDisplay.this, InviteUsers.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("progDisplayToInviteUsers", program);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        finish();
+    }
+
 }

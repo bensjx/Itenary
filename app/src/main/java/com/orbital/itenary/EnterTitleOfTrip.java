@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -17,6 +19,7 @@ public class EnterTitleOfTrip extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseRef;
     private String newTripId;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +35,14 @@ public class EnterTitleOfTrip extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseRef = mDatabase.getReferenceFromUrl("https://itenary-dc075.firebaseio.com/");
         newTripId = mDatabaseRef.push().getKey();
+        auth = FirebaseAuth.getInstance();
 
         btnTitleTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDatabaseRef.child(newTripId).child("Title").setValue(edtTitleTrip.getText().toString());
+                mDatabaseRef.child("trips").child(newTripId).child("Title").setValue(edtTitleTrip.getText().toString());
+                mDatabaseRef.child("trips").child(newTripId).child("users").child(auth.getUid()).child("view").setValue("true");
+                mDatabaseRef.child("trips").child(newTripId).child("users").child(auth.getUid()).child("edit").setValue("true");
                 Intent intent = new Intent(EnterTitleOfTrip.this, newProgramAdd.class);
                 intent.putExtra("titleTrip", edtTitleTrip.getText().toString());
                 intent.putExtra("tripId",newTripId);

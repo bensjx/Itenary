@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_invite_users"
+        android:title="Invite Users"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_delete_trip"
+        android:title="Delete Trip"
+        app:showAsAction="never">
+        <menu>
+            <item
+                android:id="@+id/menu_delete_trip_yes"
+                android:title="Delete Please" />
+
+            <item
+                android:id="@+id/menu_delete_trip_no"
+                android:title="DO NOT DELETE MY TRIP" />
+        </menu>
+    </item>
+
+</menu>

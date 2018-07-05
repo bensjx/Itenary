@@ -104,7 +104,7 @@ public class newProgramAdd extends AppCompatActivity {
         program.setTripId(existingTripId);
         program.setProgramId(programId);
         program.setTripTitle(existingTripTitle);
-        mDatabaseRef.child(existingTripId).child("programs").child(programId).setValue(program);
+        mDatabaseRef.child("trips").child(existingTripId).child("programs").child(programId).setValue(program);
     }
 
     private void backToTripDisplay() {
