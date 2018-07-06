@@ -41,8 +41,9 @@ public class EnterTitleOfTrip extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mDatabaseRef.child("trips").child(newTripId).child("Title").setValue(edtTitleTrip.getText().toString());
-                mDatabaseRef.child("trips").child(newTripId).child("users").child(auth.getUid()).child("view").setValue("true");
+                mDatabaseRef.child("trips").child(newTripId).child("users").child(auth.getUid()).child("admin").setValue("true");
                 mDatabaseRef.child("trips").child(newTripId).child("users").child(auth.getUid()).child("edit").setValue("true");
+                mDatabaseRef.child("trips").child(newTripId).child("users").child(auth.getUid()).child("view").setValue("true");
                 Intent intent = new Intent(EnterTitleOfTrip.this, newProgramAdd.class);
                 intent.putExtra("titleTrip", edtTitleTrip.getText().toString());
                 intent.putExtra("tripId",newTripId);

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -71,28 +72,33 @@ public class InviteUsers extends AppCompatActivity {
             public void onClick(View v) {
                 mDatabaseRef.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
+                    // Retrieve the uid
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String uid;
-                        for (DataSnapshot dataSnap : dataSnapshot.getChildren()){
+                        for (final DataSnapshot dataSnap : dataSnapshot.getChildren()){
+                            // Retrieve the uid
                             if (edtInviteEmail.getText().toString().equals(dataSnap.child("email").getValue().toString())){
                                 uid = dataSnap.child("uid").getValue().toString();
-                                if (cbView.isChecked() && cbEdit.isChecked()){
-                                    mDatabaseRef.child("trips").child(tripId).child("users").child(uid).child("edit").setValue("true");
-                                    mDatabaseRef.child("trips").child(tripId).child("users").child(uid).child("view").setValue("true");
-                                } else if (cbEdit.isChecked()){
-                                    mDatabaseRef.child("trips").child(tripId).child("users").child(uid).child("edit").setValue("true");
-                                    mDatabaseRef.child("trips").child(tripId).child("users").child(uid).child("view").setValue("false");
-                                } else if (cbView.isChecked()){
-                                    mDatabaseRef.child("trips").child(tripId).child("users").child(uid).child("edit").setValue("false");
-                                    mDatabaseRef.child("trips").child(tripId).child("users").child(uid).child("view").setValue("true");
-                                } else{
+                                    if (cbView.isChecked() && cbEdit.isChecked()) {
+                                        mDatabaseRef.child("trips").child(tripId).child("users").child(uid).child("edit").setValue("true");
+                                        mDatabaseRef.child("trips").child(tripId).child("users").child(uid).child("view").setValue("true");
+                                    } else if (cbEdit.isChecked()) {
+                                        mDatabaseRef.child("trips").child(tripId).child("users").child(uid).child("edit").setValue("true");
+                                        mDatabaseRef.child("trips").child(tripId).child("users").child(uid).child("view").setValue("false");
+                                    } else if (cbView.isChecked()) {
+                                        mDatabaseRef.child("trips").child(tripId).child("users").child(uid).child("edit").setValue("false");
+                                        mDatabaseRef.child("trips").child(tripId).child("users").child(uid).child("view").setValue("true");
+                                    } else {
+                                        backToProgramDisplay();
+                                    }
                                     backToProgramDisplay();
-                                }
-                                backToProgramDisplay();
-                                return;
+                                    return;
+
                             }
                         }
+                        // If no match for uid (user is not registered)
                         uid = "invalid user";
+                        Toast.makeText(InviteUsers.this,"User not registered",Toast.LENGTH_SHORT).show();
                         if (cbView.isChecked() && cbEdit.isChecked()){
                             mDatabaseRef.child("trips").child(tripId).child("users").child(uid).child("edit").setValue("true");
                             mDatabaseRef.child("trips").child(tripId).child("users").child(uid).child("view").setValue("true");

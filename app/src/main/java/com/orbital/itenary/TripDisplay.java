@@ -96,13 +96,14 @@ public class TripDisplay extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Result will be held Here
                 for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
-                    Log.d("tracker for dsn", dataSnap.child("Title").getValue().toString());
-                    ProgramClass trip = new ProgramClass();
-                    String tripId = String.valueOf(dataSnap.getKey());
-                    String tripTitle = String.valueOf(dataSnap.child("Title").getValue());
-                    trip.setTripId(tripId);
-                    trip.setTripTitle(tripTitle);
-                    progCallBack.onCallBack(trip);
+                    if (dataSnap.child("users").hasChild(uid) && dataSnap.child("users").child(uid).child("view").getValue().equals("true")) {
+                        ProgramClass trip = new ProgramClass();
+                        String tripId = String.valueOf(dataSnap.getKey());
+                        String tripTitle = String.valueOf(dataSnap.child("Title").getValue());
+                        trip.setTripId(tripId);
+                        trip.setTripTitle(tripTitle);
+                        progCallBack.onCallBack(trip);
+                    }
 
                 }
             }
