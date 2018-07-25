@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginRight="8dp"
+    android:layout_marginLeft="8dp"
     tools:context=".ProgramDisplay">
 
     <android.support.design.widget.FloatingActionButton
@@ -12,11 +14,11 @@
         android:layout_height="56dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:clickable="true"
+        app:backgroundTint="@color/appColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@drawable/add_sign" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleViewProg"
