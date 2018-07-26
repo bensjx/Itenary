@@ -39,7 +39,7 @@ public class newProgramAdd extends AppCompatActivity {
     private String existingTripId;
     private String existingTripTitle;
 
-    EditText eText;
+    // Widgets
     DatePickerDialog picker;
     TimePickerDialog tpicker;
 
@@ -59,19 +59,20 @@ public class newProgramAdd extends AppCompatActivity {
 
         // Initialise Widgets
         titleInput = findViewById(R.id.input_title);
-        //typeInput = findViewById(R.id.input_type);
-        //dateInput = findViewById(R.id.input_date);
-        //timeInput = findViewById(R.id.input_time);
+        typeInput = findViewById(R.id.input_type);
         durationInput = findViewById(R.id.input_duration);
         notesInput = findViewById(R.id.input_notes);
         costInput = findViewById(R.id.input_cost);
         currencyInput = findViewById(R.id.input_currency);
         btn_send = findViewById(R.id.btn_add);
 
+        // Allow multiple lines for notes
+        notesInput.setSingleLine(false);
+
         //Datepicker
-        eText= findViewById(R.id.input_date);
-        eText.setInputType(InputType.TYPE_NULL);
-        eText.setOnClickListener(new View.OnClickListener(){
+        dateInput = findViewById(R.id.input_date);
+        dateInput.setInputType(InputType.TYPE_NULL);
+        dateInput.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 final Calendar cldr = Calendar.getInstance();
@@ -83,7 +84,7 @@ public class newProgramAdd extends AppCompatActivity {
                         new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        eText.setText(dayOfMonth + "/" + (monthOfYear+1) + "/" + year);
+                        dateInput.setText(dayOfMonth + "/" + (monthOfYear+1) + "/" + year);
                 }
             },year,month,day);
             picker.show();
@@ -153,7 +154,7 @@ public class newProgramAdd extends AppCompatActivity {
     private void addNewProgram() {
         String title = titleInput.getText().toString();
         String type = typeInput.getSelectedItem().toString();
-        String date = eText.getText().toString();
+        String date = dateInput.getText().toString();
         String time = timeInput.getText().toString();
         String duration = durationInput.getText().toString();
         String note = notesInput.getText().toString();
