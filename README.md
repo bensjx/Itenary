@@ -46,8 +46,8 @@ With the 1st account, invite the 2nd account to edit a trip.
 
 Specifications:
 Made using:
-Android studio for android application
-Firebase for online storage of data
-Git as a source control
+1. Android studio for android application
+2. Firebase for online storage of data
+3.Git as a source control
 
 
