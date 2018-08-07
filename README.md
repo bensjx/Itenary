@@ -2,9 +2,10 @@
 Itenary
 ***************************************************************************
  
-Proposed level of achievement: Project Gemini
+Proposed level of achievement:<br>
+Project Gemini
 
-Project scope:
+Project scope:<br>
 Itenary is an android application that allows users to plan, store and view their travel itinerary. Trip details are stored in a
 detailed format, providing offline access to trip information, as well as supporting editingof itinerary on the go. Users are allowed
 to collaborate with other users to plan the same trip together.
@@ -29,22 +30,22 @@ they are invited into their trips.
 Bugs:
 1. Users are allowed to delete a trip even if edit permission is not granted.
 
-User testing:
-Cognitive walkthrough
-Clarification: Trips are the main object of this application. Examples of trips are (Vietnam with friends), (China with family), (Backpacking at Australia).
-Within trips are many programs. Examples of programs are (Eating at Ding Tai Fung), (Flight to Melbourne), (Check in Airbnb).
-We created 2 accounts for each of the 2 evaluators.
-We tested the creation of account, login of accounts with both correct and incorrect details, creation of accounts with invalid details (e.g. password length < 4).
-Create a new trip entirely from scratch both with and without adding in a program.
-Add a new program to an existing trip.
-Edit an existing program and ensure that correct details are brought up (use firebase console as a reference).
-Delete an existing program.
-Delete an existing trip (both clicking the ‘confirm delete’ and ‘do not delete’ button).
-With the 2nd account, try to access the trips of the first account (uninvited).
-With the 1st account, invite the 2nd account to view a trip.
-With the 1st account, invite the 2nd account to edit a trip.
+User testing:<br>
+Cognitive walkthrough<br>
+Clarification: Trips are the main object of this application. Examples of trips are (Vietnam with friends), (China with family), (Backpacking at Australia).<br>
+Within trips are many programs. Examples of programs are (Eating at Ding Tai Fung), (Flight to Melbourne), (Check in Airbnb).<br>
+1. We created 2 accounts for each of the 2 evaluators.
+2. We tested the creation of account, login of accounts with both correct and incorrect details, creation of accounts with invalid details (e.g. password length < 4).
+3. Create a new trip entirely from scratch both with and without adding in a program.
+4. Add a new program to an existing trip.
+5. Edit an existing program and ensure that correct details are brought up (use firebase console as a reference).
+6. Delete an existing program.
+7. Delete an existing trip (both clicking the ‘confirm delete’ and ‘do not delete’ button).
+8. With the 2nd account, try to access the trips of the first account (uninvited).
+9. With the 1st account, invite the 2nd account to view a trip.
+W10.ith the 1st account, invite the 2nd account to edit a trip.
 
-Specifications:
+Specifications:<br>
 Made using:
 1. Android studio for android application
 2. Firebase for online storage of data
