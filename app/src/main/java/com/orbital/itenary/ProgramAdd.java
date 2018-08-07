@@ -130,6 +130,7 @@ public class ProgramAdd extends AppCompatActivity {
 
         //type selector (spinner)
         Spinner stype = findViewById(R.id.input_type);
+        stype.setPrompt("Select the type of activity");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typelist);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         stype.setAdapter(adapter);

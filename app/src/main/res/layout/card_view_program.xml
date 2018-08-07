@@ -20,7 +20,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:background="@drawable/border_prog"
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -30,17 +32,42 @@
 
                 <TextView
                     android:id="@+id/titleActivity"
-                    android:layout_width="212dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="458dp"
+                    android:layout_height="49dp"
+                    android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:text="Title" />
+                    android:background="@drawable/border"
+                    android:fontFamily="casual"
+                    android:text="Title"
+                    android:textAllCaps="true"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/typeActivity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:text="Type" />
+                    android:background="@drawable/border"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/noEdtType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/card"
+                        android:text="@string/xmlType" />
+
+                    <TextView
+                        android:id="@+id/typeActivity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Type" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -48,33 +75,90 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/dateActivity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:text="Date" />
+                    android:background="@drawable/border"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/timeActivity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Time" />
+                    <TextView
+                        android:id="@+id/noEdtDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/card"
+                        android:text="@string/xmlDate" />
 
-                <TextView
-                    android:id="@+id/durationActivity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    <TextView
+                        android:id="@+id/dateActivity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Date" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:text="Duration" />
+                    android:background="@drawable/border"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/noEdtTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/card"
+                        android:text="@string/xmlTime" />
+
+                    <TextView
+                        android:id="@+id/timeActivity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Time" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/noEdtDuration"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/card"
+                        android:text="@string/xmlDuration" />
+
+                    <TextView
+                        android:id="@+id/durationActivity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Duration" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <TextView
                 android:id="@+id/notesActivity"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="120dp"
+                android:layout_margin="2dp"
                 android:layout_weight="1"
+                android:background="@drawable/border"
                 android:text="Notes" />
 
             <LinearLayout
@@ -83,19 +167,55 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/costActivity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:text="Cost" />
+                    android:background="@drawable/border"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/currencyActivity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    <TextView
+                        android:id="@+id/noEdtCost"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/card"
+                        android:text="@string/xmlCost" />
+
+                    <TextView
+                        android:id="@+id/costActivity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Cost" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:text="Currency" />
+                    android:background="@drawable/border"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/noEdtCurrency"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/card"
+                        android:text="@string/xmlCurrency" />
+
+                    <TextView
+                        android:id="@+id/currencyActivity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Currency" />
+
+                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>

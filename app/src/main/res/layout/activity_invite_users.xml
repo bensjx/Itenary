@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Enter email address of the user you wish to invite"
+        android:text="Enter the email address of the user you wish to invite"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
@@ -29,6 +29,7 @@
         android:id="@+id/textView_allowThemTo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:text="Allow them to:"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 

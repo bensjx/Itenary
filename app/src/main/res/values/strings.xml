@@ -18,4 +18,11 @@
     <string name="title_activity_new_itinerary">newItinerary</string>
     <string name="title_activity_enter_title_of_trip">EnterTitleOfTrip</string>
     <string name="databaseURL">https://itenary-dc075.firebaseio.com/</string>
+    <string name="xmlType"><u>Type of trip:</u></string>
+    <string name="xmlDate"><u>Date:</u></string>
+    <string name="xmlTime"><u>Time:</u></string>
+    <string name="xmlDuration"><u>Duration:</u></string>
+    <string name="xmlCost"><u>Price:</u></string>
+    <string name="xmlCurrency"><u>Currency:</u></string>
+    <string name="hint_type">Select the type of activity</string>
 </resources>
