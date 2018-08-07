@@ -2,8 +2,7 @@
 Itenary
 ***************************************************************************
  
-Proposed level of achievement:<br>
-Project Gemini
+Proposed level of achievement:Project Gemini
 
 Project scope:<br>
 Itenary is an android application that allows users to plan, store and view their travel itinerary. Trip details are stored in a
