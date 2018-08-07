@@ -30,7 +30,7 @@ Bugs:
 1. Users are allowed to delete a trip even if edit permission is not granted.
 
 User testing:<br>
-Cognitive walkthrough<br>
+<u>Cognitive walkthrough<br></u>
 Clarification: Trips are the main object of this application. Examples of trips are (Vietnam with friends), (China with family), (Backpacking at Australia).<br>
 Within trips are many programs. Examples of programs are (Eating at Ding Tai Fung), (Flight to Melbourne), (Check in Airbnb).<br>
 1. We created 2 accounts for each of the 2 evaluators.
