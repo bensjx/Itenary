@@ -14,6 +14,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -22,6 +24,7 @@ public class SignupActivity extends AppCompatActivity {
     private Button btnSignup;
     private TextView textViewLogin;
     private FirebaseAuth auth;
+    private DatabaseReference mDatabaseRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,8 @@ public class SignupActivity extends AppCompatActivity {
         textViewLogin = findViewById(R.id.link_login);
         auth = FirebaseAuth.getInstance();
 
+        mDatabaseRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://itenary-dc075.firebaseio.com/");
+
         textViewLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +50,7 @@ public class SignupActivity extends AppCompatActivity {
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = editTextEmail.getText().toString().trim();
+                final String email = editTextEmail.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
                 // Check if email is empty
                 if (email.length() == 0) {
@@ -69,6 +74,8 @@ public class SignupActivity extends AppCompatActivity {
                                         Toast.makeText(SignupActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
                                     } else {
                                         // Signup successful, got to main activity
+                                        User user = new User(auth.getUid(),email);
+                                        mDatabaseRef.child("users").child(auth.getUid()).setValue(user);
                                         startActivity(new Intent(SignupActivity.this, TripDisplay.class));
                                         // End the activity
                                         finish();

@@ -10,79 +10,221 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="5dp">
 
-        <EditText
+        <Spinner
             android:id="@+id/input_type"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Type"
-            android:inputType="textPersonName"
-            android:text="" />
+            android:layout_height="35dp"
+            android:background="@drawable/border"
+            android:prompt="@string/hint_type"
+            android:spinnerMode="dialog" />
 
-        <EditText
-            android:id="@+id/input_title"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Title"
-            android:inputType="textPersonName"
-            android:text="" />
+            android:layout_margin="3dp"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/input_date"
+            <TextView
+                android:id="@+id/noEdtTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/border_edit"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Title of Trip:"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/input_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:hint="Title"
+                android:inputType="textPersonName"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Date"
-            android:inputType="textPersonName"
-            android:text="" />
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/input_time"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/noEdtDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border_edit"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Date:"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/input_date"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:hint="Date"
+                    android:inputType="textPersonName"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/noEdtTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border_edit"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Time:"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/input_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:hint="Time"
+                    android:inputType="textPersonName"
+                    android:text="" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Time"
-            android:inputType="textPersonName"
-            android:text="" />
+            android:layout_margin="3dp"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/input_duration"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Duration"
-            android:inputType="textPersonName"
-            android:text="" />
+            <TextView
+                android:id="@+id/noEdtDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/border_edit"
+                android:gravity="center_horizontal|center"
+                android:paddingBottom="5dp"
+                android:paddingLeft="50dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:text="Duration:"
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/input_notes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Notes"
-            android:inputType="textPersonName"
-            android:text="" />
+            <EditText
+                android:id="@+id/input_duration"
+                android:layout_width="182dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Duration"
+                android:inputType="textPersonName"
+                android:text="" />
 
-        <EditText
-            android:id="@+id/input_cost"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Cost"
-            android:inputType="textPersonName"
-            android:text="" />
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/input_currency"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Currency"
-            android:inputType="textPersonName"
-            android:text="" />
+            android:layout_height="160dp"
+            android:layout_margin="3dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/noEdtNotes"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/border_edit"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Notes:"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/input_notes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:hint="Notes"
+                android:inputType="textPersonName"
+                android:scrollHorizontally="false"
+                android:singleLine="false"
+                android:text="" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/noEdtCost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border_edit"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Cost:"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/input_cost"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:hint="Cost"
+                    android:inputType="textPersonName"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/noEdtCurrency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border_edit"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Currency:"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/input_currency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:hint="Currency"
+                    android:inputType="textPersonName"
+                    android:text="" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/btn_edit"

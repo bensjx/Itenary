@@ -8,27 +8,28 @@
     tools:context=".InviteUsers">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView_enterEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Enter email address of the user you wish to invite"
+        android:text="Enter the email address of the user you wish to invite"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
     <EditText
-        android:id="@+id/invite_email"
+        android:id="@+id/input_invite_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="24dp"
         android:ems="10"
         android:hint="Email"
-        android:inputType="textEmailAddress" />
+        android:inputType="textPersonName"
+        android:text="" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView_allowThemTo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:text="Allow them to:"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -45,10 +46,11 @@
         android:text="Edit" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_invite_users"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
         android:background="@color/appColor"
         android:text="Submit" />
+
 </LinearLayout>

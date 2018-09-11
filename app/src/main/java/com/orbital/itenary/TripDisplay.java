@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,13 +40,11 @@ public class TripDisplay extends AppCompatActivity {
     private ArrayList<ProgramClass> tripList;
     private TripRvAdapter tripRvAdapter;
 
-    FirebaseRecyclerAdapter<EnterTitleTripClass, TripViewHolder> tripRecyclerAdapter;
-    private RecyclerView recyclerview;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_display);
+
         // Check if user is logged in
         // If user is not logged in, direct user to login page
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
@@ -54,17 +53,8 @@ public class TripDisplay extends AppCompatActivity {
             finish();
         }
 
-        recyclerview = findViewById(R.id.recycleViewTrip);
-        recyclerview.setLayoutManager(new LinearLayoutManager(TripDisplay.this));
-        tripRecyclerAdapter = new FirebaseRecyclerAdapter<EnterTitleTripClass, TripViewHolder>(EnterTitleTripClass.class,
-                R.layout.card_view_trip, TripViewHolder.class, mDatabaseRef) {
-            @Override
-            protected void populateViewHolder(TripViewHolder viewHolder, EnterTitleTripClass model, int position) {
-                viewHolder.txtView.setText(model.getTitleTrip());
-            }
-        };
-        recyclerview.setAdapter(tripRecyclerAdapter);
-
+        // Initialise database
+        mDatabaseRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://itenary-dc075.firebaseio.com/");
 
         // Get details of user
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -79,50 +69,42 @@ public class TripDisplay extends AppCompatActivity {
             }
         });
 
-        // Initialise database
-        mDatabaseRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://itenary-dc075.firebaseio.com/");
-
-
         // Part 2: CRUD display
-        /*tripList = new ArrayList<>();
         mRvTrip = findViewById(R.id.recycleViewTrip);
         mRvTrip.setHasFixedSize(true);
+
+        tripList = new ArrayList<>();
         tripRvAdapter = new TripRvAdapter(this, tripList);
+
         mRvTrip.setAdapter(tripRvAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRvTrip.setLayoutManager(linearLayoutManager);
 
         getFirebaseData(new ProgCallBack() {
             @Override
-            public void onCallBack(ProgramClass prog) {
-                tripList.add(prog);
+            public void onCallBack(ProgramClass trip) {
+                tripList.add(trip);
                 tripRvAdapter.notifyDataSetChanged();
             }
-        });*/
+        });
 
     }
 
-    /*private void getFirebaseData(final ProgCallBack progCallback) {
-        tripId = mDatabaseRef.child(uid).push().getKey();
-        mDatabaseRef.child(uid).child(tripId).addListenerForSingleValueEvent(new ValueEventListener() {
+    private void getFirebaseData(final ProgCallBack progCallBack) {
+        mDatabaseRef.child("trips").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // Result will be holded Here
+                // Result will be held Here
                 for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
-                    ProgramClass prog = new ProgramClass();
-                    String progId = String.valueOf(dataSnap.child("id").getValue());
-                    String progTitle = String.valueOf(dataSnap.child("titleOfActivity").getValue());
-                    String progDate = String.valueOf(dataSnap.child("dateOfActivity").getValue());
-                    prog.setProgramId(progId);
-                    prog.setTypeOfActivity(progType);
-                    prog.setTitleOfActivity(progTitle);
-                    prog.setDateOfActivity(progDate);
-                    prog.setTimeOfActivity(progTime);
-                    prog.setDurationOfActivity(progDuration);
-                    prog.setNoteOfActivity(progNote);
-                    prog.setCostOfActivity(progCost);
-                    prog.setCurrencyOfActivity(progCurrency);
-                    progCallback.onCallBack(prog);
+                    if (dataSnap.child("users").hasChild(uid) && dataSnap.child("users").child(uid).child("view").getValue().equals("true")) {
+                        ProgramClass trip = new ProgramClass();
+                        String tripId = String.valueOf(dataSnap.getKey());
+                        String tripTitle = String.valueOf(dataSnap.child("Title").getValue());
+                        trip.setTripId(tripId);
+                        trip.setTripTitle(tripTitle);
+                        progCallBack.onCallBack(trip);
+                    }
+
                 }
             }
 
@@ -131,9 +113,9 @@ public class TripDisplay extends AppCompatActivity {
                 // Handle db error
             }
         });
-    }*/
+    }
 
-    private void addNewTrip(){
+    private void addNewTrip() {
         Intent intent = new Intent(TripDisplay.this, EnterTitleOfTrip.class);
         startActivity(intent);
     }
@@ -161,14 +143,5 @@ public class TripDisplay extends AppCompatActivity {
         Intent intent = new Intent(TripDisplay.this, LoginActivity.class);
         startActivity(intent);
         finish();
-    }
-
-    public static class TripViewHolder extends RecyclerView.ViewHolder {
-        TextView txtView;
-
-        public TripViewHolder() {
-            super(itemView);
-            txtView = itemView.findViewById(R.id.tripTitle);
-        }
     }
 }
